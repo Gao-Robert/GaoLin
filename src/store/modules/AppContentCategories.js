@@ -20,7 +20,7 @@ const actions = {
         console.group('uri')
         console.log(uri)
         console.groupEnd()
-        fetch(`${netFile.baseUrl}/cmt/api/files`,{
+        fetch(`${netFile.baseUrl}/cmt/api/files`,{    
                 method: 'POST',
                 headers: netFile.upFiles,
               /*  mode: 'no-cors'*/
