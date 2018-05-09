@@ -11,6 +11,10 @@ fs.open('./src/config/env.js', 'w', function (err, fd) {
 });
 
 module.exports = merge(webpackBaseConfig, {
+    // devServer: {
+    //     inline:true,
+    //     port: 8080
+    // },//add by G
     devtool: '#source-map',
     output: {
         publicPath: '/dist/',

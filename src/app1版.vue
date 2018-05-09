@@ -1,33 +1,40 @@
+<style scoped>
+    @import 'styles/common.css';
+</style>
 <template>
-    <div class="index">
+    <div class="app">
         <v-header></v-header>
         <div class="content">
             <div class="leftMenu">
                 <Row>
                     <Col span="2">
-                    <Menu :theme="theme2">
+                    <Menu :theme="theme2" :open-names="['1','2','3']">
                         <Submenu name="1">
                             <template slot="title">
-                                <router-link to="/start"><Icon type="ios-paper"></Icon>
-                                    内容管理
+                                <router-link to="/start">
+                                    <Icon type="ios-paper"></Icon>
+                                    App启动设置
                                 </router-link>
                             </template>
-                            <MenuItem name="1-1">文章管理</MenuItem>
-                            <MenuItem name="1-2">评论管理</MenuItem>
-                            <MenuItem name="1-3">举报管理</MenuItem>
+                            <MenuItem name="1-1">评论管理</MenuItem>
+                            <MenuItem name="1-2">举报管理</MenuItem>
                         </Submenu>
                         <Submenu name="2">
                             <template slot="title">
-                                <Icon type="ios-people"></Icon>
-                                用户管理
+                                <router-link to="/module">
+                                    <Icon type="ios-people"></Icon>
+                                    发现模块栏目
+                                </router-link>
                             </template>
                             <MenuItem name="2-1">新增用户</MenuItem>
                             <MenuItem name="2-2">活跃用户</MenuItem>
                         </Submenu>
                         <Submenu name="3">
                             <template slot="title">
-                                <Icon type="stats-bars"></Icon>
-                                统计分析
+                                <router-link to="/start">
+                                    <Icon type="stats-bars"></Icon>
+                                    去往start
+                                </router-link>
                             </template>
                             <MenuGroup title="使用">
                                 <MenuItem name="3-1">新增和启动</MenuItem>
@@ -50,12 +57,12 @@
     </div>
 </template>
 <script>
-    import header from '../components/header/header'
+    import header from './components/header/header'
     export default {
         data(){
-           return {
-               theme2:'dark'
-           }
+            return {
+                theme2:'dark'
+            }
         },
         methods: {
             handleStart () {
@@ -71,19 +78,17 @@
     }
 </script>
 <style scoped lang="less">
-    .index{
+    .app{
         width: 100%;
-        display:flex;
-        text-align: center;
         .content{
             position:absolute;
-            top:20px;
+            top:65px;
             display: flex;
             .leftMenu{
-                flex: 1;
-                .ivu-row {
+                flex: 0 0 201px;
+                /*.ivu-row {
                     margin-left: -39px;
-                }
+                }*/
             }
             .rightContent{
                 flex: 1;

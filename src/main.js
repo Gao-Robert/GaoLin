@@ -5,9 +5,15 @@ import Routers from './router';
 import Util from './libs/util';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
+import store from './store';
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 
 Vue.use(VueRouter);
 Vue.use(iView);
+Vue.use(VueQuillEditor, /* { default global options } */)
 
 // 路由配置
 const RouterConfig = {
@@ -27,8 +33,12 @@ router.afterEach((to, from, next) => {
     window.scrollTo(0, 0);
 });
 
+
 new Vue({
     el: '#app',
+    store,
     router: router,
     render: h => h(App)
 });
+
+

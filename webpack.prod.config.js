@@ -12,7 +12,9 @@ fs.open('./src/config/env.js', 'w', function (err, fd) {
 
 module.exports = merge(webpackBaseConfig, {
     output: {
-        publicPath: '/dist/',
+        // publicPath: '/dist/',
+        publicPath: '../../cmt-static/',//changed by G 当写成./cmt-static/时出现了字体无法显示的情况
+       
         filename: '[name].[hash].js',
         chunkFilename: '[name].[hash].chunk.js'
     },
