@@ -3,7 +3,7 @@
         <!-- {{colcontent}} -->
         <!-- <button @click="getState">获取state</button> -->
         <div class="top">
-             <Form  :label-width="80"> 
+            <Form  :label-width="80"> 
             <FormItem label="已建栏目">
                 <Select  @on-change="getContentById" v-model="model1" style="width:100%">
                 <Option v-for="item in colList" :value="item.value" :key='item.value' >
@@ -80,7 +80,21 @@
                 ],
                
             }
-        },    
+        }, 
+        watch: {
+            '$route' (to, from) {
+                console.log('this.$route.query')
+                console.log(this.$route.query)
+                console.log('$route_to')
+                console.log(to)
+                console.log('$route_from')
+                console.log(from)
+                if(this.$route.query.id != undefined){
+                    this.$store.dispatch('getContentById',this.$route.query.id)
+                    this.model1 = this.$route.query.id
+                }//创建内容成功后，来到这个页面带过来的字段,select里面选择好刚才创建的内容
+            }
+        },   
         methods:{
             getContentById () {              
                 this.$store.dispatch('getContentById',this.model1)

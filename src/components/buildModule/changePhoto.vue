@@ -257,7 +257,7 @@ import {mapGetters} from 'vuex'
                 console.group('上传图片后返回的res')
                 console.log(res)
                 console.groupEnd()
-                file.url = `${this.baseUrl}/cmt/api/files?path=${res.file_infos[0].path}`
+                file.url = `${this.baseUrl}/${res.file_infos[0].path}`
                 file.name = `${res.file_infos[0].name}`//提示错误使用
                 // file.path = `${res.file_infos[0].path}`
                 console.log('上传图片后应显示图片file.url')

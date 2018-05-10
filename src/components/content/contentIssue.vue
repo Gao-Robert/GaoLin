@@ -2,16 +2,16 @@
 <div class="contentIssue">
   <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">       
         <FormItem label="栏目名称" prop="select">
-            <Select  v-model="model1" style="width:100%">
-              <Option @click.native="pickCol(item.label,item.value)"   v-for="item in colList" :value="item.value" :key='item.value' >
-                  {{ item.label }}
-              </Option>
-            </Select>
-            <!--根据ID取得更新 <Select  @on-change="getAppContentById" v-model="model1" style="width:100%">
+            <!-- <Select  v-model="model1" style="width:100%">
               <Option @click.native="pickCol(item.label,item.value)"   v-for="item in colList" :value="item.value" :key='item.value' >
                   {{ item.label }}
               </Option>
             </Select> -->
+            <Select  @on-change="getAppContentById" v-model="model1" style="width:100%">
+              <Option @click.native="pickCol(item.label,item.value)"   v-for="item in colList" :value="item.value" :key='item.value' >
+                  {{ item.label }}
+              </Option>
+            </Select>
         </FormItem>
         <FormItem label="标题"  prop="input1">
             <Input v-model="formValidate.input1" placeholder="Enter something..."></Input>
@@ -19,7 +19,7 @@
         <FormItem label="简短描述" prop="textarea">
             <Input v-model="formValidate.textarea" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
         </FormItem>
-        <FormItem label="关键字" prop="input2">
+        <FormItem label="关键字" >
             <Input v-model="formValidate.input2" placeholder="多个词用逗号隔开，为广告时此项不填写"></Input>
         </FormItem>
         <FormItem label="来源/作者" prop="input3">
@@ -40,7 +40,7 @@
                       @focus="onEditorFocus($event)"
                       @ready="onEditorReady($event)">
         </quill-editor>
-        <FormItem label="Radio">
+        <FormItem label="Radio" prop="radio2">
             <RadioGroup v-model="formValidate.radio2">
                   <Row>
                     <Col span="8">
@@ -93,13 +93,13 @@
                     </div>
                 </Upload>
                 <Modal title="View Image" v-model="visible">
-                    <img :src="baseUrl+'/cmt/api/files?path=' + imgUrl  " v-if="visible" style="width: 100%">
+                    <img :src="baseUrl+'/' + imgUrl  " v-if="visible" style="width: 100%">
                 </Modal>
             </section>
         </FormItem>
         <FormItem>
             <Button type="primary"  @click="handleSubmit('formValidate')">Submit</Button>
-            <Button type="ghost" style="margin-left: 8px">Cancel</Button>
+            <!-- <Button type="ghost" style="margin-left: 8px">Cancel</Button> -->
         </FormItem>
     </Form>
 </div> 
@@ -199,10 +199,16 @@
                         this.sendBacks.source = this.formValidate.input3
                         this.sendBacks.style = parseInt(this.formValidate.radio2)
                         this.sendBacks.type = parseInt(this.formValidate.radio1)     
-                        this.sendBacks.contentUrl = this.content
-                        this.$store.dispatch('createAppDynamicFind',this.sendBacks)
-                        this.$router.replace({path: '/module'});
-                        location.reload()
+                        this.sendBacks.content = this.content
+                        if(this.Contchangeable){
+                            this.$store.dispatch('updateAppDynamicFind',this.sendBacks)
+                            
+                        }else{
+                            this.$store.dispatch('createAppDynamicFind',this.sendBacks)
+                            
+                        }
+                        this.$router.replace({path: '/contentList',query:{id:this.sendBacks.classId}})//创建成功后去到列表页
+                        // location.reload()
                     } else {
                         this.$Message.error('Fail!');
                     }
@@ -226,14 +232,14 @@
                                         this.formValidate.input1 = this.getAppDynamicFind[0].name
                                         this.formValidate.textarea = this.getAppDynamicFind[0].description
                                        
-                                        this.formValidate.radio2 = this.getAppDynamicFind[0].style
-                                        this.formValidate.radio1 = this.getAppDynamicFind[0].type
+                                        this.formValidate.radio2 = JSON.stringify(this.getAppDynamicFind[0].style)
+                                        this.formValidate.radio1 = JSON.stringify(this.getAppDynamicFind[0].type)
                                         this.formValidate.input2 = this.getAppDynamicFind[0].keywords.join(",")
                                         this.formValidate.input3 = this.getAppDynamicFind[0].source
-                                        this.content = this.getAppDynamicFind[0].contentUrl
+                                        this.content = this.getAppDynamicFind[0].content
                                  
-                                        console.log(' this.formValidate.input2 ')
-                                        console.log( this.formValidate.input2 )      
+                                        console.log(' this.formValidate ')
+                                        console.log( this.formValidate )      
                                     }
                                     
                                 }, 1000);
@@ -282,7 +288,7 @@
           console.group('上传图片后返回的res')
           console.log(res)
           console.groupEnd()
-          file.url = `${this.baseUrl}/cmt/api/files?path=${res.file_infos[0].path}`
+          file.url = `${this.baseUrl}/${res.file_infos[0].path}`
           file.name = `${res.file_infos[0].name}`//提示错误使用
           file.path = `${res.file_infos[0].path}`
           console.log('上传图片后应显示图片file.url')

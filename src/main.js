@@ -25,6 +25,7 @@ const router = new VueRouter(RouterConfig);
 router.beforeEach((to, from, next) => {
     iView.LoadingBar.start();
     Util.title(to.meta.title);
+    store.dispatch('getAppContentCategories')  //进入每一个route之前获取栏目id及名字，这样就不用进入每一个页面都要调取一遍
     next();
 });
 

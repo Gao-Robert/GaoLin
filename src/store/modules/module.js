@@ -11,12 +11,19 @@ const getters = {
         return state.colcontent
     },
     colList(state){
-        for(var i=0,l=state.colcontent.length;i<l;i++){
-            state.colList.push({'label':state.colcontent[i].name,'value':state.colcontent[i].id})
-		
-        }       
-        
-        return state.colList
+        // for(var i=0,l=state.colcontent.length;i<l;i++){
+        //     state.colList[i].label = state.colcontent[i].name
+        //     state.colList[i].value = state.colcontent[i].id
+        // }   会引起key 的重复  
+        let reformdefaultList = state.colcontent.map(function(obj) { 
+            let rObj = {};
+           
+            rObj['label'] = obj.name;
+            rObj['value'] = obj.id;
+            return rObj;
+            });//
+            
+        return state.colList = reformdefaultList
         
     },//轮播图栏目名称
     baseUrl(state){

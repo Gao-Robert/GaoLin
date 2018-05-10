@@ -18,7 +18,7 @@
                 this.$router.push({path:'/buildModule'})
             },
             show (index) {
-                this.$router.push({path:'/buildModule',query:{id:this.colcontent[index].id,infUrl:this.colcontent[index].infUrl}})
+                this.$router.push({path:'/buildModule',query:{id:this.colcontent[index].id,infUrl:this.colcontent[index].infUrl,name:this.colcontent[index].name,childName:this.colcontent[index].childName}})
                 // this.$Modal.info({
                 //     title: 'User Info',
                 //     content: `Name：${this.colcontent[index].name}<br>childNmae：${this.colcontent[index].childName}`
@@ -36,7 +36,7 @@
             'colcontent'
         ]),
       created(){
-           this.$store.dispatch('getAppContentCategories')  
+        //    this.$store.dispatch('getAppContentCategories')  
       },
       updated(){
           console.log('colcontent')

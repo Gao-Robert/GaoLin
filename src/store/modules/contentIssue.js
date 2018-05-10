@@ -70,6 +70,28 @@ const actions = {
                 console.log(`this is error${error}`)
             });
     },
+    updateAppDynamicFind({commit,state},data){
+        console.log('提交更新内容后发送的数据data') 
+        console.log(data)
+        fetch(`${netFile.baseUrl}/cmt/api/app/dynamic/find`,{ 
+                method:'put',
+                headers: netFile.myHeaders,
+                mode:'cors',
+                body: JSON.stringify(data)
+        })
+            .then(function (response) {                 
+                return response.json();             
+            })
+            .then(function(data) {
+                console.log('更新内容后获取的数据res') 
+                console.log(data)
+                // commit(types.CREATE_PHOTOS,data)
+              })//
+            .catch(function (error) {
+                /* console.log('this is error'+ error);*///等同于下面的模板字符串
+                console.log(`this is error${error}`)
+            });
+    },
     /*!// Want to use async/await? Add the `async` keyword to your outer function/method.
     async function getRatings() {
       try {

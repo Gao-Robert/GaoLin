@@ -26,9 +26,11 @@
                 </Header>
                 <Layout>
                     <Sider hide-trigger :style="{background: '#fff'}">
+                         
                         <Menu
                         @on-select='toBuildModule' 
-                        theme="light" width="auto" :open-names="['2']"   active-name="module"
+                        theme="light" width="auto" 
+                        :open-names="['2']" active-name="module"
                         >
                             <Submenu name="1">
                                 <template slot="title">
